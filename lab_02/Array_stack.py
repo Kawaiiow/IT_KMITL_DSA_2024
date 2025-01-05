@@ -23,6 +23,7 @@ class ArrayStack:
             return (self.data.pop())
         else:
             print("Underflow: Cannot pop data from an empty list")
+            return (None)
         
     def is_empty(self) -> bool:
         if not self.size:
@@ -31,9 +32,12 @@ class ArrayStack:
     
     def get_stack_top(self) -> str | int | float:
         if self.size:
-            return (self.data[self.size - 1])
+            con = self.pop()
+            self.push(con)
+            return (con)
         else:
-            print("Underflow: Cannot pop data from an empty list")
+            print("Underflow: Cannot get stack top from an empty list")
+            return (None)
 
     def get_size(self) -> int:
         return (self.size)
@@ -41,15 +45,27 @@ class ArrayStack:
     def print_stack(self):
         print(self.data)
 
-# def main():
-#     s1 = ArrayStack()
-#     s2 = ArrayStack()
-#     s1.push(10)
-#     s1.push(20)
-#     s1.push(30)
-#     s2.push(25)
-#     x = s1.pop()
-#     s2.push(x)
-#     s1.print_stack()
-#     s2.print_stack()
-# main()
+def main():
+    stack = ArrayStack()
+    text_in = input()
+    while text_in.lower() != "exit":
+        condition, data = text_in.split(": ")
+        if condition == "Push":
+            stack.push(data)
+        elif condition == "Pop":
+            stack.pop()
+        elif condition == "Top":
+            print(stack.get_stack_top())
+        elif condition == "Size":
+            print(stack.get_size())
+        elif condition == "Empty":
+            print(stack.is_empty())
+        elif condition == "Print":
+            stack.print_stack()
+        else:
+            print("Invalid Condition!")
+        text_in = input()
+    stack.print_stack()
+
+main()
+
